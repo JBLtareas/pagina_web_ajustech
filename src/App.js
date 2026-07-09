@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import Gallery from './components/Gallery';
 import './App.css';
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
             <a href="#home">Home</a>
             <a href="#about">Acerca de Nosotros</a>
             <a href="#works">Trabajos</a>
+            <a href="#gallery">Galería</a>
             <a href="#contact">Contacto</a>
           </div>
           <div className="nav-actions">
@@ -91,9 +93,11 @@ function App() {
       </header>
 
       <main>
-        <section id="about" className="section">
-          <h2>Acerca de nosotros</h2>
-          <p>Somos un equipo enfocado en crear experiencias digitales claras, rápidas y profesionales para marcas que quieren crecer.</p>
+        <section id="about" className="section glass-section">
+          <div className="section-header">
+            <h2>Acerca de nosotros</h2>
+            <p className="section-lead">Somos un equipo enfocado en crear experiencias digitales claras, rápidas y profesionales para marcas que quieren crecer.</p>
+          </div>
 
           <div className="tech-section">
             <h3>Tecnologías con las que trabajamos</h3>
@@ -114,8 +118,11 @@ function App() {
           </div>
         </section>
 
-        <section id="works" className="section alt">
-          <h2>Trabajos</h2>
+        <section id="works" className="section glass-section alt">
+          <div className="section-header">
+            <h2>Trabajos</h2>
+            <p className="section-lead">Proyectos y soluciones que hemos desarrollado para distintos sectores.</p>
+          </div>
           <div className="cards">
             <article className="glass-card">
               <h3>Landing Page</h3>
@@ -132,9 +139,13 @@ function App() {
           </div>
         </section>
 
-        <section id="contact" className="section">
-          <h2>Contacto</h2>
-          <p>Escríbenos para hablar de tu próximo proyecto.</p>
+        <Gallery />
+
+        <section id="contact" className="section glass-section">
+          <div className="section-header">
+            <h2>Contacto</h2>
+            <p className="section-lead">Escríbenos para hablar de tu próximo proyecto.</p>
+          </div>
           <a href="mailto:contacto@ajustech.com" className="btn">contacto@ajustech.com</a>
         </section>
       </main>
