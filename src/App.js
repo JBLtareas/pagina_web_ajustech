@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [pendingDarkMode, setPendingDarkMode] = useState(true);
   const [themeTransition, setThemeTransition] = useState({ active: false, x: 0, y: 0, direction: 'to-light' });
   const toggleRef = useRef(null);
@@ -13,6 +14,14 @@ function App() {
     document.body.classList.toggle('light-theme', !darkMode);
     document.body.classList.toggle('dark-theme', darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    const loadingTimer = window.setTimeout(() => {
+      setIsLoading(false);
+    }, 1100);
+
+    return () => window.clearTimeout(loadingTimer);
+  }, []);
 
   useEffect(() => {
     if (!themeTransition.active) {
@@ -52,6 +61,21 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? 'dark-theme' : 'light-theme'}`}>
+      <div className={`loading-screen ${isLoading ? 'is-visible' : ''}`} aria-hidden={!isLoading}>
+        <div className="loading-shell">
+          <div className="skeleton skeleton-brand" />
+          <div className="skeleton skeleton-eyebrow" />
+          <div className="skeleton skeleton-title" />
+          <div className="skeleton skeleton-title skeleton-title-short" />
+          <div className="skeleton skeleton-copy" />
+          <div className="skeleton skeleton-copy skeleton-copy-short" />
+          <div className="skeleton-grid">
+            <div className="skeleton skeleton-card" />
+            <div className="skeleton skeleton-card" />
+            <div className="skeleton skeleton-card" />
+          </div>
+        </div>
+      </div>
       {darkMode && (
         <video
           className="background-video"
