@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Gallery from './components/Gallery';
+import backgroundVideo from './sources/videodefondo.webm';
 import './App.css';
 
 function App() {
@@ -51,6 +52,18 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? 'dark-theme' : 'light-theme'}`}>
+      {darkMode && (
+        <video
+          className="background-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+        >
+          <source src={backgroundVideo} type="video/webm" />
+        </video>
+      )}
       <div
         className={`theme-transition-layer ${themeTransition.active ? 'active' : ''} ${themeTransition.direction === 'to-dark' ? 'sunset' : 'sunrise'}`}
         aria-hidden="true"

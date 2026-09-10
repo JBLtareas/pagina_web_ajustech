@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+
+
+.video-background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+
 :root {
   --bg: #fffaf4;
   --surface: rgba(255, 250, 244, 0.96);
@@ -11,8 +22,8 @@
   --accent: #f59e0b;
   --border: rgba(127, 75, 29, 0.16);
   --navbar-bg: rgba(255, 247, 237, 0.92);
-  --hero-bg: linear-gradient(135deg, #ffd68a 0%, #ff8c42 45%, #f97316 100%);
-  --page-bg: radial-gradient(circle at top left, rgba(251, 191, 36, 0.22), transparent 24%), linear-gradient(180deg, #fff7ed 0%, #ffe7cc 42%, #fffaf4 100%);
+  --hero-bg: linear-gradient(135deg, #e0def2 0%, #f0ebe0 25%, #e08d9d 50%, #c7e2a3 75%, #9bdee5 100%);
+  --page-bg: radial-gradient(circle at top left, rgba(224, 222, 242, 0.72), transparent 24%), linear-gradient(135deg, #f0ebe0 0%, #e08d9d 35%, #c7e2a3 68%, #9bdee5 100%);
   --glass-bg: rgba(255, 248, 240, 0.72);
   --glass-border: rgba(249, 115, 22, 0.22);
   --glass-shadow: rgba(249, 115, 22, 0.14);
@@ -22,6 +33,9 @@
   --card-shadow: rgba(249, 115, 22, 0.16);
   --hero-text: #3b1c10;
   --hero-subtext: rgba(59, 28, 16, 0.8);
+  --shimmer-base: #3b1c10;
+  --shimmer-highlight: #ffffff;
+  --shimmer-accent: #e08d9d;
 }
 
 body {
@@ -45,8 +59,8 @@ body.dark-theme {
   --accent: #38bdf8;
   --border: rgba(148, 163, 184, 0.16);
   --navbar-bg: rgba(3, 7, 18, 0.92);
-  --hero-bg: linear-gradient(135deg, #020617 0%, #111827 40%, #312e81 100%);
-  --page-bg: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 24%), linear-gradient(180deg, #020617 0%, #0f172a 38%, #030712 100%);
+  --hero-bg: radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.58) 0 9%, transparent 30%), radial-gradient(circle at 78% 22%, rgba(139, 92, 246, 0.56) 0 12%, transparent 34%), radial-gradient(circle at 50% 88%, rgba(236, 72, 153, 0.38) 0 13%, transparent 38%), linear-gradient(135deg, #020617 0%, #111827 42%, #312e81 100%);
+  --page-bg: radial-gradient(circle at 8% 18%, rgba(56, 189, 248, 0.5) 0 5%, transparent 25%), radial-gradient(circle at 82% 12%, rgba(139, 92, 246, 0.48) 0 8%, transparent 28%), radial-gradient(circle at 68% 68%, rgba(236, 72, 153, 0.34) 0 7%, transparent 24%), radial-gradient(circle at 22% 82%, rgba(45, 212, 191, 0.28) 0 6%, transparent 26%), repeating-radial-gradient(ellipse at 50% 45%, rgba(148, 163, 184, 0.08) 0 2px, transparent 3px 90px), linear-gradient(135deg, #020617 0%, #0f172a 42%, #030712 100%);
   --glass-bg: rgba(8, 15, 31, 0.72);
   --glass-border: rgba(56, 189, 248, 0.2);
   --glass-shadow: rgba(2, 6, 23, 0.38);
@@ -56,12 +70,88 @@ body.dark-theme {
   --card-shadow: rgba(2, 6, 23, 0.3);
   --hero-text: #f8fafc;
   --hero-subtext: rgba(226, 232, 240, 0.9);
+  --shimmer-base: #f8fafc;
+  --shimmer-highlight: #90e0ff;
+  --shimmer-accent: #a960ee;
 }
 
 .App {
   min-height: 100vh;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+}
+
+.background-video {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.App.dark-theme::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--page-bg);
+  background-size: 170% 170%;
+  mix-blend-mode: screen;
+  opacity: 0.78;
+  animation: dark-waves 18s ease-in-out infinite alternate;
+}
+
+@keyframes dark-waves {
+  0% {
+    background-position: 0% 20%;
+  }
+
+  50% {
+    background-position: 70% 55%;
+  }
+
+  100% {
+    background-position: 100% 80%;
+  }
+}
+
+.App.light-theme::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.42;
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(255, 255, 255, 0.9) 0 1px, transparent 2px),
+    radial-gradient(circle at 38% 74%, rgba(255, 255, 255, 0.8) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.86) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 66%, rgba(255, 255, 255, 0.82) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 56% 42%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px);
+  background-size: 190px 170px, 260px 230px, 220px 200px, 300px 260px, 240px 210px;
+  mix-blend-mode: screen;
+  animation: light-glitter 11s ease-in-out infinite alternate;
+}
+
+@keyframes light-glitter {
+  0% {
+    background-position: 0 0, 30px 80px, 100px 20px, 40px 120px, 80px 40px;
+    opacity: 0.26;
+  }
+
+  50% {
+    background-position: 55px 35px, 0 120px, 150px 70px, 90px 40px, 20px 100px;
+    opacity: 0.5;
+  }
+
+  100% {
+    background-position: 110px 70px, 60px 20px, 40px 120px, 150px 90px, 100px 10px;
+    opacity: 0.32;
+  }
 }
 
 .theme-transition-layer {
@@ -83,6 +173,9 @@ body.dark-theme {
 
 .theme-transition-layer::before {
   clip-path: circle(0% at var(--origin-x) var(--origin-y));
+  mix-blend-mode: difference;
+  transform: scale(0.72) rotate(0deg);
+  transform-origin: var(--origin-x) var(--origin-y);
   transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
 }
 
@@ -101,14 +194,32 @@ body.dark-theme {
 .theme-transition-layer.active::before {
   opacity: 1;
   clip-path: circle(180% at var(--origin-x) var(--origin-y));
+  animation: radial-drift 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .theme-transition-layer.active::after {
   opacity: 1;
 }
 
+@keyframes radial-drift {
+  0% {
+    transform: scale(0.72) rotate(0deg) translate3d(0, 0, 0);
+    background-position: 50% 50%;
+  }
+
+  45% {
+    transform: scale(1.08) rotate(9deg) translate3d(1.5%, -1%, 0);
+    background-position: 56% 44%;
+  }
+
+  100% {
+    transform: scale(1.28) rotate(-5deg) translate3d(-1%, 1%, 0);
+    background-position: 44% 56%;
+  }
+}
+
 .hero {
-  background: var(--hero-bg);
+  background: color-mix(in srgb, var(--hero-bg) 54%, transparent);
   color: var(--hero-text);
   min-height: 100vh;
 }
@@ -233,6 +344,12 @@ body.dark-theme {
   color: var(--hero-text);
   line-height: 1.05;
   letter-spacing: -0.03em;
+  background-image: linear-gradient(110deg, var(--shimmer-base) 0 35%, var(--shimmer-highlight) 47%, var(--shimmer-accent) 53%, var(--shimmer-base) 65%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: text-shimmer 5s infinite ease-in-out;
 }
 
 .hero-content p {
@@ -278,6 +395,27 @@ body.dark-theme {
   overflow: hidden;
 }
 
+#about.glass-section {
+  background-image: url('./sources/backgroungcards.png');
+  background-position: center;
+  background-size: cover;
+}
+
+.light-theme #about.glass-section,
+.light-theme #works.glass-section,
+.light-theme #gallery.glass-section {
+  background: rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-color: rgba(255, 255, 255, 0.48);
+}
+
+#works.glass-section {
+  background-image: url('./sources/backgroungcards.png');
+  background-position: center;
+  background-size: cover;
+}
+
 .glass-section::before {
   content: '';
   position: absolute;
@@ -309,7 +447,7 @@ body.dark-theme {
 }
 
 .section-lead {
-  color: var(--muted);
+  color: #fff;
   max-width: 720px;
   margin: 0;
   font-size: 1.05rem;
@@ -333,6 +471,35 @@ body.dark-theme {
   margin-bottom: 1rem;
   color: var(--text);
   font-size: clamp(1.8rem, 2.4vw, 2.4rem);
+  background-image: linear-gradient(110deg, var(--shimmer-base) 0 35%, var(--shimmer-highlight) 47%, var(--shimmer-accent) 53%, var(--shimmer-base) 65%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: text-shimmer 5s infinite ease-in-out;
+}
+
+.tech-section h3,
+.gallery-info h3,
+.card h3 {
+  background-image: linear-gradient(110deg, var(--shimmer-base) 0 35%, var(--shimmer-highlight) 47%, var(--shimmer-accent) 53%, var(--shimmer-base) 65%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: text-shimmer 5s infinite ease-in-out;
+}
+
+@keyframes text-shimmer {
+  0%,
+  20% {
+    background-position: 100% 0;
+  }
+
+  55%,
+  100% {
+    background-position: 0% 0;
+  }
 }
 
 .tech-section {
@@ -343,7 +510,7 @@ body.dark-theme {
 
 .tech-section h3 {
   margin-bottom: 1rem;
-  color: var(--text);
+  color: transparent;
 }
 
 .tech-list {
@@ -353,7 +520,7 @@ body.dark-theme {
 }
 
 .glass-card {
-  background: var(--glass-bg);
+  background: color-mix(in srgb, var(--glass-bg) 55%, transparent);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   border-radius: 20px;
@@ -480,7 +647,7 @@ body.dark-theme {
 
 .gallery-info h3 {
   margin: 0.5rem 0 0.6rem;
-  color: var(--text);
+  color: transparent;
   font-size: 1.15rem;
 }
 
@@ -506,7 +673,7 @@ body.dark-theme {
 }
 
 .card {
-  background: var(--card-bg);
+  background: color-mix(in srgb, var(--card-bg) 55%, transparent);
   border: 1px solid var(--border);
   padding: 1.4rem;
   border-radius: 1.2rem;
@@ -522,7 +689,7 @@ body.dark-theme {
 
 .card h3 {
   margin-bottom: 0.75rem;
-  color: var(--text);
+  color: transparent;
 }
 
 footer {
@@ -542,7 +709,7 @@ footer {
   --accent: #f59e0b;
   --border: rgba(127, 75, 29, 0.16);
   --navbar-bg: rgba(255, 247, 237, 0.92);
-  --page-bg: radial-gradient(circle at top left, rgba(251, 191, 36, 0.22), transparent 24%), linear-gradient(180deg, #fff7ed 0%, #ffe7cc 42%, #fffaf4 100%);
+  --page-bg: radial-gradient(circle at top left, rgba(224, 222, 242, 0.72), transparent 24%), linear-gradient(135deg, #f0ebe0 0%, #e08d9d 35%, #c7e2a3 68%, #9bdee5 100%);
   --glass-bg: rgba(255, 248, 240, 0.72);
   --glass-border: rgba(249, 115, 22, 0.22);
   --glass-shadow: rgba(249, 115, 22, 0.14);
@@ -561,7 +728,7 @@ footer {
   --accent: #38bdf8;
   --border: rgba(148, 163, 184, 0.16);
   --navbar-bg: rgba(3, 7, 18, 0.92);
-  --page-bg: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 24%), linear-gradient(180deg, #020617 0%, #0f172a 38%, #030712 100%);
+  --page-bg: radial-gradient(circle at 8% 18%, rgba(56, 189, 248, 0.5) 0 5%, transparent 25%), radial-gradient(circle at 82% 12%, rgba(139, 92, 246, 0.48) 0 8%, transparent 28%), radial-gradient(circle at 68% 68%, rgba(236, 72, 153, 0.34) 0 7%, transparent 24%), radial-gradient(circle at 22% 82%, rgba(45, 212, 191, 0.28) 0 6%, transparent 26%), repeating-radial-gradient(ellipse at 50% 45%, rgba(148, 163, 184, 0.08) 0 2px, transparent 3px 90px), linear-gradient(135deg, #020617 0%, #0f172a 42%, #030712 100%);
   --glass-bg: rgba(8, 15, 31, 0.72);
   --glass-border: rgba(56, 189, 248, 0.2);
   --glass-shadow: rgba(2, 6, 23, 0.38);
