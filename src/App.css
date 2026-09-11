@@ -681,18 +681,20 @@ body.dark-theme {
 }
 
 .glass-card {
-  background: hsl(0 0% 100% / var(--glass-frost));
-  backdrop-filter: blur(20px) saturate(1.4);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--glass-highlight) 24%, transparent), transparent 42%),
+    color-mix(in srgb, var(--glass-bg) 66%, transparent);
+  backdrop-filter: blur(24px) saturate(1.55);
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
-  border-radius: 20px;
-  border: 1px solid var(--glass-border);
+  border-radius: 22px;
+  border: 1px solid color-mix(in srgb, var(--glass-highlight) 42%, var(--glass-border));
   box-shadow:
-    0 12px 30px var(--glass-shadow),
-    inset 0 0 2px 1px rgba(255, 255, 255, 0.35),
-    inset 0 0 10px 4px rgba(255, 255, 255, 0.15),
-    inset 0 4px 16px rgba(17, 17, 26, 0.05),
-    inset 0 8px 24px rgba(17, 17, 26, 0.05),
-    inset 0 6px 56px rgba(17, 17, 26, 0.05);
+    0 18px 38px color-mix(in srgb, var(--glass-shadow) 92%, transparent),
+    0 4px 8px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 var(--glass-highlight),
+    inset 1px 0 0 color-mix(in srgb, var(--glass-highlight) 48%, transparent),
+    inset 0 -18px 30px color-mix(in srgb, #000 14%, transparent),
+    inset 0 0 24px var(--glass-inner);
   position: relative;
   padding: 1.6rem;
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
@@ -701,12 +703,15 @@ body.dark-theme {
 }
 
 .glass-card:hover {
-  transform: translateY(-4px);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--glass-border));
+  transform: translateY(-6px) scale(1.012);
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--glass-highlight));
   box-shadow:
-    0 22px 45px var(--glass-shadow),
+    0 26px 52px color-mix(in srgb, var(--glass-shadow) 94%, transparent),
+    0 0 24px color-mix(in srgb, var(--accent) 12%, transparent),
     inset 0 1px 0 var(--glass-highlight),
-    inset 0 -1px 0 var(--glass-inner);
+    inset 1px 0 0 var(--glass-highlight),
+    inset 0 -18px 30px color-mix(in srgb, #000 12%, transparent),
+    inset 0 0 28px var(--glass-inner);
 }
 
 .glass-card::before {
@@ -715,13 +720,12 @@ body.dark-theme {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.8),
-    transparent
-  );
+  height: 42%;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.42), transparent 32%);
+  opacity: 0.7;
+  transform: skewY(-7deg) translateY(-45%);
+  transform-origin: top left;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .glass-card::after {
@@ -729,14 +733,18 @@ body.dark-theme {
   position: absolute;
   top: 0;
   left: 0;
-  width: 1px;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.8),
-    transparent,
-    rgba(255, 255, 255, 0.3)
-  );
+  border-radius: inherit;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.2), transparent 25% 72%, rgba(255, 255, 255, 0.08));
+  opacity: 0.65;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: opacity 0.3s ease;
+}
+
+.glass-card:hover::before,
+.glass-card:hover::after {
+  opacity: 1;
 }
 
 
@@ -767,6 +775,10 @@ body.dark-theme {
   gap: 1.25rem;
   position: relative;
   z-index: 1;
+}
+
+.gallery-section-shell {
+  padding-bottom: clamp(2rem, 5vw, 4rem);
 }
 
 .gallery-item {
@@ -865,38 +877,28 @@ body.dark-theme {
 .dark-theme .card {
   color: #ffffff;
   background:
-    repeating-linear-gradient(102deg, rgba(255, 255, 255, 0.12) 0 2px, transparent 2px 7px),
-    linear-gradient(115deg, #454d57 0%, #b9c1c8 18%, #68727d 34%, #f0f3f5 48%, #606a75 64%, #c7cdd2 82%, #3d4650 100%);
-  background-size: 170% 170%, 100% 100%;
-  border-color: rgba(218, 232, 242, 0.56);
+    linear-gradient(145deg, rgba(255, 255, 255, 0.13), transparent 38%),
+    rgba(8, 15, 31, 0.34);
+  border-color: rgba(210, 235, 255, 0.26);
   box-shadow:
-    0 16px 34px rgba(0, 0, 0, 0.38),
-    inset 0 0 2px 1px rgba(255, 255, 255, 0.72),
-    inset 0 0 12px 4px rgba(255, 255, 255, 0.18),
-    inset 0 -10px 24px rgba(18, 24, 32, 0.28),
-    inset 0 8px 28px rgba(255, 255, 255, 0.12);
-  animation: metal-sheen 12s ease-in-out infinite alternate;
+    0 18px 38px rgba(0, 0, 0, 0.34),
+    0 4px 8px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 1px 0 0 rgba(255, 255, 255, 0.14),
+    inset 0 -18px 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 24px rgba(255, 255, 255, 0.06);
 }
 
 .dark-theme .glass-card:hover,
 .dark-theme .card:hover {
-  border-color: rgba(144, 224, 255, 0.85);
+  border-color: rgba(144, 224, 255, 0.62);
   box-shadow:
-    0 22px 45px rgba(0, 0, 0, 0.48),
+    0 28px 54px rgba(0, 0, 0, 0.48),
     0 0 22px rgba(144, 224, 255, 0.16),
-    inset 0 0 2px 1px rgba(255, 255, 255, 0.85),
-    inset 0 0 14px 5px rgba(255, 255, 255, 0.22),
-    inset 0 -10px 24px rgba(18, 24, 32, 0.3);
-}
-
-@keyframes metal-sheen {
-  0% {
-    background-position: 0% 50%, 0 0;
-  }
-
-  100% {
-    background-position: 100% 50%, 0 0;
-  }
+    inset 0 1px 0 rgba(255, 255, 255, 0.56),
+    inset 1px 0 0 rgba(255, 255, 255, 0.24),
+    inset 0 -18px 30px rgba(0, 0, 0, 0.22),
+    inset 0 0 28px rgba(255, 255, 255, 0.08);
 }
 
 footer {
@@ -970,3 +972,97 @@ footer {
     justify-content: center;
   }
 }
+
+html.has-scroll-cursor,
+html.has-scroll-cursor body,
+html.has-scroll-cursor a,
+html.has-scroll-cursor button,
+html.has-scroll-cursor input {
+  cursor: none;
+}
+
+.scroll-cursor {
+  --cursor-color: #fbbf24;
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  pointer-events: none;
+}
+
+.scroll-cursor__core {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: block;
+  pointer-events: none;
+  will-change: left, top;
+}
+
+.scroll-cursor__core {
+  width: 1.75rem;
+  height: 1.75rem;
+  margin: -0.875rem;
+  font-size: 1.75rem;
+}
+
+.scroll-cursor--about .scroll-cursor__core,
+.scroll-cursor--works .scroll-cursor__core {
+  width: 38px;
+  height: 38px;
+  margin: -19px;
+  font-size: 2rem;
+}
+
+.scroll-cursor--about .scroll-cursor__core::before,
+.scroll-cursor--works .scroll-cursor__core::before,
+.scroll-cursor--gallery .scroll-cursor__core::before,
+.scroll-cursor--contact .scroll-cursor__core::before,
+.scroll-cursor--home .scroll-cursor__core::before {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  line-height: 1;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.25));
+}
+
+.scroll-cursor--about .scroll-cursor__core::before {
+  content: '\01F383';
+}
+
+.scroll-cursor--works .scroll-cursor__core::before {
+  content: '\01F987';
+  font-size: 32px;
+}
+
+.scroll-cursor--gallery .scroll-cursor__core::before {
+  content: '\01F5A6';
+}
+
+.scroll-cursor--contact .scroll-cursor__core::before {
+  content: '\01F480';
+}
+
+.scroll-cursor--home .scroll-cursor__core::before {
+  content: '\01F577';
+}
+
+body.light-theme .scroll-cursor--home .scroll-cursor__core::before {
+  content: '\01F47B';
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html.has-scroll-cursor,
+  html.has-scroll-cursor body,
+  html.has-scroll-cursor a,
+  html.has-scroll-cursor button,
+  html.has-scroll-cursor input {
+    cursor: auto;
+  }
+
+  .scroll-cursor {
+    display: none;
+  }
+}
+

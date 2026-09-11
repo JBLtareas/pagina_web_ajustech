@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Gallery from './components/Gallery';
+import ScrollCursor from './components/ScrollCursor';
+import HalloweenSkeleton from './season';
 import backgroundVideo from './sources/videodefondo.webm';
 import './App.css';
 
@@ -9,19 +11,12 @@ function App() {
   const [pendingDarkMode, setPendingDarkMode] = useState(true);
   const [themeTransition, setThemeTransition] = useState({ active: false, x: 0, y: 0, direction: 'to-light' });
   const toggleRef = useRef(null);
+  const handleLoadingComplete = useCallback(() => setIsLoading(false), []);
 
   useEffect(() => {
     document.body.classList.toggle('light-theme', !darkMode);
     document.body.classList.toggle('dark-theme', darkMode);
   }, [darkMode]);
-
-  useEffect(() => {
-    const loadingTimer = window.setTimeout(() => {
-      setIsLoading(false);
-    }, 1100);
-
-    return () => window.clearTimeout(loadingTimer);
-  }, []);
 
   useEffect(() => {
     if (!themeTransition.active) {
@@ -61,8 +56,10 @@ function App() {
 
   return (
     <div className={`App ${darkMode ? 'dark-theme' : 'light-theme'}`}>
+      <ScrollCursor />
       <div className={`loading-screen ${isLoading ? 'is-visible' : ''}`} aria-hidden={!isLoading}>
         <div className="loading-shell">
+          <HalloweenSkeleton onComplete={handleLoadingComplete} />
           <div className="skeleton skeleton-brand" />
           <div className="skeleton skeleton-eyebrow" />
           <div className="skeleton skeleton-title" />
@@ -121,7 +118,7 @@ function App() {
           </div>
         </nav>
 
-        <section id="home" className="hero-content">
+        <section id="home" className="hero-content" data-cursor-section="home">
           <p className="eyebrow">Soluciones creativas para tu negocio</p>
           <h1>Impulsamos tu presencia digital con tecnología y diseño.</h1>
           <p>Desarrollamos sitios web modernos, funcionales y pensados para convertir visitantes en clientes.</p>
@@ -130,7 +127,7 @@ function App() {
       </header>
 
       <main>
-        <section id="about" className="section glass-section">
+        <section id="about" className="section glass-section" data-cursor-section="about">
           <div className="section-header">
             <h2>Acerca de nosotros</h2>
             <p className="section-lead">Somos un equipo enfocado en crear experiencias digitales claras, rápidas y profesionales para marcas que quieren crecer.</p>
@@ -155,7 +152,7 @@ function App() {
           </div>
         </section>
 
-        <section id="works" className="section glass-section alt">
+        <section id="works" className="section glass-section alt" data-cursor-section="works">
           <div className="section-header">
             <h2>Trabajos</h2>
             <p className="section-lead">Proyectos y soluciones que hemos desarrollado para distintos sectores.</p>
@@ -176,9 +173,11 @@ function App() {
           </div>
         </section>
 
-        <Gallery />
+        <div className="gallery-section-shell" data-cursor-section="gallery">
+          <Gallery />
+        </div>
 
-        <section id="contact" className="section glass-section">
+        <section id="contact" className="section glass-section" data-cursor-section="contact">
           <div className="section-header">
             <h2>Contacto</h2>
             <p className="section-lead">Escríbenos para hablar de tu próximo proyecto.</p>
