@@ -2,14 +2,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Gallery from './components/Gallery';
 import ScrollCursor from './components/ScrollCursor';
 import HalloweenSkeleton from './season';
-import backgroundVideo from './sources/videodefondo.webm';
 import './App.css';
+
+const BACKGROUND_VIDEO = '/videodefondo.webm';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
   const [pendingDarkMode, setPendingDarkMode] = useState(true);
   const [themeTransition, setThemeTransition] = useState({ active: false, x: 0, y: 0, direction: 'to-light' });
+  const [contact, setContact] = useState({ name: '', email: '', message: '' });
+  const [contactStatus, setContactStatus] = useState({ type: '', text: '' });
+  const [sending, setSending] = useState(false);
   const toggleRef = useRef(null);
   const handleLoadingComplete = useCallback(() => setIsLoading(false), []);
 
@@ -54,6 +58,40 @@ function App() {
     setPendingDarkMode(nextDarkMode);
   };
 
+  const handleContactChange = (event) => {
+    const { name, value } = event.target;
+    setContact((current) => ({ ...current, [name]: value }));
+  };
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+    setSending(true);
+    setContactStatus({ type: '', text: '' });
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contact),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'No se pudo enviar el mensaje.');
+      }
+
+      setContact({ name: '', email: '', message: '' });
+      setContactStatus({ type: 'ok', text: 'Mensaje enviado. Te contactaremos pronto.' });
+    } catch (error) {
+      setContactStatus({
+        type: 'error',
+        text: error.message || 'No se pudo enviar. Intenta de nuevo.',
+      });
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <div className={`App ${darkMode ? 'dark-theme' : 'light-theme'}`}>
       <ScrollCursor />
@@ -82,7 +120,7 @@ function App() {
           playsInline
           aria-hidden="true"
         >
-          <source src={backgroundVideo} type="video/webm" />
+          <source src={BACKGROUND_VIDEO} type="video/webm" />
         </video>
       )}
       <div
@@ -137,8 +175,8 @@ function App() {
             <h3>Tecnologías con las que trabajamos</h3>
             <div className="tech-list">
               <article className="glass-card">
-                <h4>Django</h4>
-                <p>Usamos Django para ofrecer soluciones rápidas, seguras y robustas en cada proyecto que desarrollamos.</p>
+                <h4>React + Node</h4>
+                <p>Construimos sitios y APIs modernas, rápidas y fáciles de mantener para cada proyecto.</p>
               </article>
               <article className="glass-card">
                 <h4>Blender</h4>
@@ -182,7 +220,48 @@ function App() {
             <h2>Contacto</h2>
             <p className="section-lead">Escríbenos para hablar de tu próximo proyecto.</p>
           </div>
-          <a href="mailto:contacto@ajustech.com" className="btn">contacto@ajustech.com</a>
+          <form className="contact-form" onSubmit={handleContactSubmit}>
+            <label>
+              Nombre
+              <input
+                name="name"
+                type="text"
+                value={contact.name}
+                onChange={handleContactChange}
+                autoComplete="name"
+                required
+              />
+            </label>
+            <label>
+              Correo
+              <input
+                name="email"
+                type="email"
+                value={contact.email}
+                onChange={handleContactChange}
+                autoComplete="email"
+                required
+              />
+            </label>
+            <label>
+              Mensaje
+              <textarea
+                name="message"
+                rows="4"
+                value={contact.message}
+                onChange={handleContactChange}
+                required
+              />
+            </label>
+            <button className="btn" type="submit" disabled={sending}>
+              {sending ? 'Enviando…' : 'Enviar mensaje'}
+            </button>
+            {contactStatus.text ? (
+              <p className={`contact-status contact-status--${contactStatus.type}`} role="status">
+                {contactStatus.text}
+              </p>
+            ) : null}
+          </form>
         </section>
       </main>
 

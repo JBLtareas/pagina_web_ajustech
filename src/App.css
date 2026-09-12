@@ -973,11 +973,68 @@ footer {
   }
 }
 
+.contact-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.contact-form .btn {
+  justify-self: start;
+}
+
+.contact-form .btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.contact-status {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.contact-status--ok {
+  color: #34d399;
+}
+
+.contact-status--error {
+  color: #fb7185;
+}
+
 html.has-scroll-cursor,
 html.has-scroll-cursor body,
 html.has-scroll-cursor a,
 html.has-scroll-cursor button,
-html.has-scroll-cursor input {
+html.has-scroll-cursor input,
+html.has-scroll-cursor textarea {
   cursor: none;
 }
 
@@ -1057,7 +1114,8 @@ body.light-theme .scroll-cursor--home .scroll-cursor__core::before {
   html.has-scroll-cursor body,
   html.has-scroll-cursor a,
   html.has-scroll-cursor button,
-  html.has-scroll-cursor input {
+  html.has-scroll-cursor input,
+  html.has-scroll-cursor textarea {
     cursor: auto;
   }
 
