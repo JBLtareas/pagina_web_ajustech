@@ -1,0 +1,377 @@
+@use 'sass:math';
+
+$numberOfSnowflake: 48 !default;
+$numberOfSnowflakeMd: 16 !default;
+$numberOfSnowflakeLg: 12 !default;
+
+@mixin snow-particles($count) {
+  @for $i from 1 through $count {
+    &._#{$i} {
+      @if $i % 2 == 0 {
+        left: #{math.random(22)}vw;
+      } @else {
+        left: #{78 + math.random(22)}vw;
+      }
+      filter: blur(#{math.random(2) - 1}px);
+      animation:
+        #{(math.random(20) + 20) * 0.1}s snow-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.2}s snow-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+.snowflake-area {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.snowflake {
+  position: absolute;
+  top: -2vh;
+  font-size: 10px;
+  opacity: 0.85;
+  line-height: 1;
+
+  &._md {
+    font-size: 1.5em;
+  }
+
+  &._lg {
+    font-size: 2.25em;
+  }
+
+  &::before {
+    content: '❄️';
+  }
+
+  @include snow-particles($numberOfSnowflake);
+
+  @for $i from 1 through $numberOfSnowflakeMd {
+    &._md-#{$i} {
+      @if $i % 2 == 0 {
+        left: #{math.random(22)}vw;
+      } @else {
+        left: #{78 + math.random(22)}vw;
+      }
+      filter: blur(#{math.random(2) - 1}px);
+      animation:
+        #{(math.random(20) + 20) * 0.1}s snow-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.2}s snow-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+
+  @for $i from 1 through $numberOfSnowflakeLg {
+    &._lg-#{$i} {
+      @if $i % 2 == 0 {
+        left: #{math.random(22)}vw;
+      } @else {
+        left: #{78 + math.random(22)}vw;
+      }
+      animation:
+        #{(math.random(20) + 20) * 0.1}s snow-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.3}s snow-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+@keyframes snow-flicker {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+
+  100% {
+    transform: translate3d(6vw, 110vh, 0) rotate(360deg);
+  }
+}
+
+/* =========================================================
+   Cursor Navidad — SOLO body.season-winter
+   ========================================================= */
+body.season-winter .scroll-cursor {
+  --cursor-color: #7dd3fc;
+  --cursor-glow: rgba(125, 211, 252, 0.45);
+}
+
+body.season-winter .scroll-cursor__core,
+body.season-winter.light-theme .scroll-cursor__core,
+body.season-winter.dark-theme .scroll-cursor__core {
+  width: 2rem !important;
+  height: 2rem !important;
+  margin: -1rem !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+}
+
+body.season-winter .scroll-cursor__core::before,
+body.season-winter.light-theme .scroll-cursor__core::before,
+body.season-winter.dark-theme .scroll-cursor__core::before {
+  content: '❄️';
+  position: absolute;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center;
+  border: none !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  font-size: 1.85rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.25));
+}
+
+body.season-winter .scroll-cursor__core::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.season-winter .scroll-cursor--home .scroll-cursor__core::before {
+  content: '🎅';
+}
+
+body.season-winter.light-theme .scroll-cursor--home .scroll-cursor__core::before {
+  content: '🎄';
+}
+
+body.season-winter .scroll-cursor--about .scroll-cursor__core::before {
+  content: '🦌';
+}
+
+body.season-winter .scroll-cursor--works .scroll-cursor__core::before {
+  content: '🎁';
+  font-size: 2.1rem;
+}
+
+body.season-winter .scroll-cursor--gallery .scroll-cursor__core::before {
+  content: '❄️';
+}
+
+body.season-winter .scroll-cursor--contact .scroll-cursor__core::before {
+  content: '🔔';
+}
+
+body.season-winter .scroll-cursor--about .scroll-cursor__core,
+body.season-winter .scroll-cursor--works .scroll-cursor__core,
+body.season-winter .scroll-cursor--gallery .scroll-cursor__core {
+  width: 2.15rem !important;
+  height: 2.15rem !important;
+  margin: -1.075rem !important;
+}
+
+/* Shimmer de hielo para títulos grandes */
+$ice-blue: #4f90ab;
+$ice-light: #e0f2fe;
+$ice-mid: #7dd3fc;
+$ice-deep: #0284c7;
+
+body.season-winter .hero-content h1,
+body.season-winter .section-header h2 {
+  font-weight: 900;
+  text-transform: none;
+  letter-spacing: -0.03em;
+  background-image:
+    linear-gradient(
+      115deg,
+      $ice-deep 0%,
+      $ice-mid 18%,
+      $ice-light 32%,
+      #ffffff 42%,
+      $ice-mid 52%,
+      $ice-blue 68%,
+      $ice-light 82%,
+      $ice-deep 100%
+    );
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 0.6px rgba(79, 144, 171, 0.55);
+  filter: drop-shadow(0 0 12px rgba(79, 144, 171, 0.55)) drop-shadow(0 0 28px rgba(125, 211, 252, 0.25));
+  animation: ice-shimmer 2000ms ease-in-out infinite;
+}
+
+body.season-winter .hero-content h1 {
+  font-size: clamp(2.8rem, 6vw, 4.8rem);
+}
+
+body.season-winter.light-theme .hero-content h1,
+body.season-winter.light-theme .section-header h2 {
+  -webkit-text-stroke: 0.7px rgba(2, 132, 199, 0.45);
+  filter: drop-shadow(0 0 10px rgba(2, 132, 199, 0.28));
+}
+
+@keyframes ice-shimmer {
+  0%,
+  18% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 40% 50%;
+  }
+
+  82%,
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Paneles de hielo: about + works (solo modo noche) — alineado al glass oscuro base */
+body.season-winter.dark-theme #about.glass-section,
+body.season-winter.dark-theme #works.glass-section {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  background:
+    linear-gradient(160deg, rgba(186, 230, 253, 0.08), transparent 42%),
+    rgba(15, 23, 42, 0.62);
+  box-shadow:
+    0 16px 42px rgba(2, 6, 23, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(26px) saturate(1.25);
+  -webkit-backdrop-filter: blur(26px) saturate(1.25);
+}
+
+body.season-winter.dark-theme #about.glass-section::before,
+body.season-winter.dark-theme #works.glass-section::before {
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.12) 48%, transparent 72%);
+  opacity: 0.5;
+}
+
+body.season-winter.dark-theme #about.glass-section::after,
+body.season-winter.dark-theme #works.glass-section::after {
+  background: radial-gradient(circle at 18% 0%, rgba(125, 211, 252, 0.12), transparent 42%);
+}
+
+body.season-winter.dark-theme #about .glass-card,
+body.season-winter.dark-theme #works .glass-card {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.1), transparent 45%),
+    rgba(15, 23, 42, 0.55);
+  box-shadow:
+    0 14px 32px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(20px) saturate(1.25);
+  -webkit-backdrop-filter: blur(20px) saturate(1.25);
+}
+
+body.season-winter.dark-theme #about .glass-card:hover,
+body.season-winter.dark-theme #works .glass-card:hover {
+  border-color: rgba(125, 211, 252, 0.42);
+  background:
+    linear-gradient(160deg, rgba(186, 230, 253, 0.12), transparent 48%),
+    rgba(15, 23, 42, 0.68);
+  box-shadow:
+    0 18px 40px rgba(2, 6, 23, 0.5),
+    0 0 20px rgba(56, 189, 248, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transform: translateY(-6px) scale(1.012);
+}
+
+body.season-winter.dark-theme #about .glass-card h3,
+body.season-winter.dark-theme #about .glass-card h4,
+body.season-winter.dark-theme #works .glass-card h3,
+body.season-winter.dark-theme #works .glass-card h4 {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: #f8fafc;
+  color: #f8fafc;
+  animation: none;
+  filter: none;
+}
+
+body.season-winter.dark-theme #about .glass-card p,
+body.season-winter.dark-theme #works .glass-card p,
+body.season-winter.dark-theme #about .section-lead,
+body.season-winter.dark-theme #works .section-lead {
+  color: rgba(203, 213, 225, 0.92);
+}
+
+/* Modo día: glass líquido blanco + texto negro legible */
+body.season-winter.light-theme #about.glass-section,
+body.season-winter.light-theme #works.glass-section {
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.55) 48%, rgba(248, 250, 252, 0.7)),
+    rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 18px 48px rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(28px) saturate(1.25);
+  -webkit-backdrop-filter: blur(28px) saturate(1.25);
+}
+
+body.season-winter.light-theme #about.glass-section::before,
+body.season-winter.light-theme #works.glass-section::before {
+  background: linear-gradient(
+    115deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.75) 45%,
+    transparent 70%
+  );
+  opacity: 0.7;
+}
+
+body.season-winter.light-theme #about .glass-card,
+body.season-winter.light-theme #works .glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.62));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 12px 30px rgba(15, 23, 42, 0.07);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+body.season-winter.light-theme #about .glass-card:hover,
+body.season-winter.light-theme #works .glass-card:hover {
+  border-color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 16px 36px rgba(15, 23, 42, 0.1);
+}
+
+body.season-winter.light-theme #about .section-header h2,
+body.season-winter.light-theme #works .section-header h2,
+body.season-winter.light-theme #about .glass-card h3,
+body.season-winter.light-theme #about .glass-card h4,
+body.season-winter.light-theme #works .glass-card h3,
+body.season-winter.light-theme #works .glass-card h4,
+body.season-winter.light-theme #about .tech-section h3,
+body.season-winter.light-theme #works .tech-section h3 {
+  background: none;
+  -webkit-text-fill-color: #0f172a;
+  color: #0f172a;
+  -webkit-text-stroke: 0;
+  filter: none;
+  animation: none;
+}
+
+body.season-winter.light-theme #about .section-lead,
+body.season-winter.light-theme #works .section-lead,
+body.season-winter.light-theme #about .glass-card p,
+body.season-winter.light-theme #works .glass-card p,
+body.season-winter.light-theme #about .softwares-lead,
+body.season-winter.light-theme #works .softwares-lead {
+  color: #1e293b;
+}

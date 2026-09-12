@@ -1,0 +1,792 @@
+/* Temas de color por temporada — se activan con body.season-* */
+
+body.season-autumn {
+  --season-accent: #f59e0b;
+  --season-accent-2: #ea580c;
+  --season-glow: rgba(245, 158, 11, 0.28);
+}
+
+body.season-autumn.dark-theme {
+  --primary: #f59e0b;
+  --primary-dark: #c2410c;
+  --accent: #fb923c;
+  --glass-border: rgba(245, 158, 11, 0.28);
+  --glass-shadow: rgba(120, 53, 15, 0.35);
+  --shimmer-accent: #fb923c;
+  --page-bg:
+    radial-gradient(circle at 12% 18%, rgba(245, 158, 11, 0.35) 0 8%, transparent 28%),
+    radial-gradient(circle at 78% 22%, rgba(234, 88, 12, 0.32) 0 10%, transparent 32%),
+    radial-gradient(circle at 50% 88%, rgba(127, 29, 29, 0.28) 0 12%, transparent 36%),
+    linear-gradient(135deg, #1c0a05 0%, #2a1208 42%, #431407 100%);
+}
+
+body.season-autumn.light-theme {
+  --primary: #ea580c;
+  --primary-dark: #c2410c;
+  --accent: #d97706;
+  --glass-border: rgba(234, 88, 12, 0.22);
+  --card-shadow: rgba(234, 88, 12, 0.14);
+  --shimmer-accent: #ea580c;
+  --page-bg:
+    radial-gradient(circle at top left, rgba(255, 237, 213, 0.85), transparent 28%),
+    linear-gradient(135deg, #fff7ed 0%, #ffedd5 35%, #fed7aa 68%, #fdba74 100%);
+}
+
+body.season-halloween {
+  --season-accent: #a855f7;
+  --season-accent-2: #f97316;
+  --season-glow: rgba(168, 85, 247, 0.3);
+}
+
+body.season-halloween.dark-theme {
+  --primary: #a855f7;
+  --primary-dark: #6b21a8;
+  --accent: #fb923c;
+  --glass-border: rgba(168, 85, 247, 0.28);
+  --glass-shadow: rgba(46, 16, 101, 0.4);
+  --shimmer-accent: #c084fc;
+  --page-bg:
+    radial-gradient(circle at 10% 20%, rgba(249, 115, 22, 0.4) 0 8%, transparent 28%),
+    radial-gradient(circle at 82% 16%, rgba(168, 85, 247, 0.42) 0 10%, transparent 30%),
+    radial-gradient(circle at 48% 90%, rgba(15, 23, 42, 0.5) 0 14%, transparent 38%),
+    linear-gradient(135deg, #020617 0%, #1e1b4b 45%, #0f172a 100%);
+}
+
+body.season-halloween.light-theme {
+  --primary: #7c3aed;
+  --primary-dark: #5b21b6;
+  --accent: #ea580c;
+  --glass-border: rgba(124, 58, 237, 0.22);
+  --shimmer-accent: #a855f7;
+  --page-bg:
+    radial-gradient(circle at 14% 12%, rgba(255, 204, 133, 0.9), transparent 30%),
+    radial-gradient(circle at 86% 20%, rgba(240, 160, 181, 0.72), transparent 32%),
+    radial-gradient(circle at 48% 95%, rgba(199, 226, 163, 0.5), transparent 38%),
+    linear-gradient(
+      135deg,
+      #ffcc85 0%,
+      #ffb35a 22%,
+      #f0a0b5 45%,
+      #e08d9d 68%,
+      #c7e2a3 100%
+    );
+}
+
+body.season-winter {
+  --season-accent: #38bdf8;
+  --season-accent-2: #e2e8f0;
+  --season-glow: rgba(56, 189, 248, 0.28);
+}
+
+body.season-winter.dark-theme {
+  --primary: #38bdf8;
+  --primary-dark: #0284c7;
+  --accent: #e2e8f0;
+  --glass-border: rgba(148, 163, 184, 0.28);
+  --glass-shadow: rgba(15, 23, 42, 0.45);
+  --shimmer-highlight: #e0f2fe;
+  --shimmer-accent: #7dd3fc;
+  --page-bg:
+    radial-gradient(circle at 14% 16%, rgba(56, 189, 248, 0.28) 0 8%, transparent 28%),
+    radial-gradient(circle at 80% 18%, rgba(226, 232, 240, 0.18) 0 10%, transparent 30%),
+    linear-gradient(135deg, #020617 0%, #0f172a 48%, #1e293b 100%);
+}
+
+body.season-winter.light-theme {
+  --primary: #0284c7;
+  --primary-dark: #0369a1;
+  --accent: #64748b;
+  --glass-border: rgba(14, 165, 233, 0.22);
+  --shimmer-accent: #38bdf8;
+  /* Modo día: conserva --page-bg original de App.css */
+}
+
+body.season-spring {
+  --season-accent: #34d399;
+  --season-accent-2: #f472b6;
+  --season-glow: rgba(52, 211, 153, 0.25);
+}
+
+body.season-spring.dark-theme {
+  --primary: #34d399;
+  --primary-dark: #059669;
+  --accent: #f472b6;
+  --glass-border: rgba(52, 211, 153, 0.24);
+  --shimmer-accent: #6ee7b7;
+  --page-bg:
+    radial-gradient(circle at 12% 20%, rgba(52, 211, 153, 0.28) 0 8%, transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(244, 114, 182, 0.22) 0 9%, transparent 30%),
+    linear-gradient(135deg, #022c22 0%, #0f172a 50%, #1e1b4b 100%);
+}
+
+body.season-spring.light-theme {
+  --primary: #059669;
+  --primary-dark: #047857;
+  --accent: #db2777;
+  --glass-border: rgba(16, 185, 129, 0.22);
+  --shimmer-accent: #34d399;
+  --page-bg:
+    radial-gradient(circle at top left, rgba(209, 250, 229, 0.9), transparent 28%),
+    linear-gradient(135deg, #ecfdf5 0%, #fdf2f8 50%, #f0fdf4 100%);
+}
+
+body.season-summer {
+  --season-accent: #ffaa00;
+  --season-accent-2: #ff3300;
+  --season-glow: rgba(255, 102, 0, 0.35);
+}
+
+/*
+  Modo normal oscuro — interfaz tipo NERV / Evangelion
+  (ámbar, hazard, paneles con doble borde glow)
+*/
+body.season-summer.dark-theme {
+  --glow-rgb: 255, 102, 0;
+  --danger-glow-rgb: 255, 34, 51;
+  --nerv-amber: #ffaa00;
+  --nerv-orange: #ff6600;
+  --nerv-danger: #ff2233;
+  --primary: #ff6600;
+  --primary-dark: #cc4400;
+  --accent: #ffaa00;
+  --text: #ffe7b0;
+  --muted: rgba(255, 187, 68, 0.72);
+  --border: rgba(255, 102, 0, 0.35);
+  --navbar-bg: rgba(0, 0, 0, 0.88);
+  --glass-bg: rgba(0, 0, 0, 0.72);
+  --glass-border: rgba(255, 102, 0, 0.55);
+  --glass-shadow: rgba(255, 68, 0, 0.22);
+  --glass-highlight: rgba(255, 170, 0, 0.35);
+  --glass-inner: rgba(255, 102, 0, 0.08);
+  --card-bg: rgba(0, 0, 0, 0.78);
+  --card-shadow: rgba(255, 68, 0, 0.28);
+  --shimmer-base: #ffaa00;
+  --shimmer-highlight: #ffffff;
+  --shimmer-accent: #ff3300;
+  /* fondo NERV anterior (sin rejilla Magi) */
+  --page-bg:
+    radial-gradient(circle at 12% 10%, rgba(255, 102, 0, 0.22) 0 10%, transparent 32%),
+    radial-gradient(circle at 88% 18%, rgba(255, 34, 51, 0.12) 0 8%, transparent 28%),
+    radial-gradient(circle at 50% 100%, rgba(255, 102, 0, 0.1) 0 18%, transparent 45%),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255, 102, 0, 0.03) 3px,
+      rgba(255, 102, 0, 0.03) 4px
+    ),
+    linear-gradient(180deg, #000000 0%, #0a0500 48%, #000000 100%);
+}
+
+body.season-summer.light-theme {
+  --primary: #f97316;
+  --primary-dark: #c2410c;
+  --accent: #ea580c;
+  --text: #2f1f14;
+  --muted: #7a5540;
+  --border: rgba(127, 75, 29, 0.14);
+  --navbar-bg: rgba(255, 247, 237, 0.9);
+  --glass-bg: rgba(255, 248, 240, 0.78);
+  --glass-border: rgba(249, 115, 22, 0.2);
+  --glass-shadow: rgba(194, 65, 12, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-inner: rgba(255, 255, 255, 0.28);
+  --card-bg: rgba(255, 252, 248, 0.88);
+  --card-shadow: rgba(194, 65, 12, 0.12);
+  --shimmer-base: #3b1c10;
+  --shimmer-highlight: #ffffff;
+  --shimmer-accent: #e08d9d;
+  --page-bg:
+    radial-gradient(circle at 12% 12%, rgba(255, 204, 133, 0.95), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(240, 160, 181, 0.75), transparent 32%),
+    radial-gradient(circle at 50% 100%, rgba(199, 226, 163, 0.6), transparent 40%),
+    linear-gradient(
+      145deg,
+      #ffcc85 0%,
+      #ffb35a 22%,
+      #f0a0b5 45%,
+      #e08d9d 68%,
+      #c7e2a3 100%
+    );
+}
+
+body.season-summer.dark-theme .brand {
+  color: var(--nerv-amber);
+}
+
+body.season-summer.dark-theme .brand:hover {
+  color: #ffdd66;
+  text-shadow:
+    -1px 1px 0 rgba(255, 102, 0, 0.55),
+    1px -1px 0 rgba(255, 102, 0, 0.55),
+    0 0 14px rgba(255, 102, 0, 0.45);
+}
+
+body.season-summer.dark-theme .nav-links a {
+  color: rgba(255, 231, 176, 0.82);
+}
+
+body.season-summer.dark-theme .nav-links a::after {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffaa00, transparent);
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.55);
+  border-radius: 0;
+}
+
+body.season-summer.dark-theme .nav-links a:hover {
+  color: #ffaa00;
+  text-shadow:
+    -1px 1px 0 rgba(255, 102, 0, 0.45),
+    1px -1px 0 rgba(255, 102, 0, 0.45),
+    0 0 12px rgba(255, 102, 0, 0.4);
+}
+
+body.season-summer.dark-theme .navbar {
+  border-bottom-color: rgba(255, 102, 0, 0.35);
+  background: rgba(0, 0, 0, 0.82);
+  box-shadow: 0 1px 0 rgba(255, 102, 0, 0.15);
+}
+
+body.season-summer.light-theme .nav-links a::after {
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+body.season-summer.light-theme .nav-links a:hover {
+  color: var(--primary);
+}
+
+body.season-summer.light-theme .brand:hover {
+  color: var(--primary);
+}
+
+body.season-summer.dark-theme .eyebrow {
+  color: var(--nerv-amber);
+  text-shadow:
+    -1px 1px 0 rgba(255, 102, 0, 0.45),
+    1px -1px 0 rgba(255, 102, 0, 0.45);
+  font-weight: 700;
+}
+
+body.season-summer.dark-theme .glass-card h3,
+body.season-summer.dark-theme .glass-card h4,
+body.season-summer.dark-theme .gallery-info h3 {
+  color: var(--nerv-amber) !important;
+  background: none !important;
+  -webkit-text-fill-color: var(--nerv-amber) !important;
+  text-shadow:
+    -1px 1px 0 rgba(255, 102, 0, 0.4),
+    1px -1px 0 rgba(255, 102, 0, 0.4);
+  animation: none !important;
+  filter: none !important;
+}
+
+body.season-summer.dark-theme .section-lead,
+body.season-summer.dark-theme .glass-card p,
+body.season-summer.dark-theme .gallery-info p,
+body.season-summer.dark-theme .softwares-lead {
+  color: rgba(255, 204, 128, 0.82) !important;
+}
+
+/* Paneles sección: glass + acento NERV */
+body.season-summer.dark-theme #about.glass-section,
+body.season-summer.dark-theme #works.glass-section,
+body.season-summer.dark-theme #gallery.glass-section,
+body.season-summer.dark-theme #contact.glass-section,
+body.season-summer.dark-theme #privacidad.glass-section {
+  border: 1px solid rgba(255, 102, 0, 0.4);
+  border-radius: 24px;
+  background:
+    linear-gradient(160deg, rgba(255, 102, 0, 0.08), transparent 42%),
+    rgba(0, 0, 0, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 170, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 102, 0, 0.15),
+    0 18px 48px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(28px) saturate(1.35);
+  -webkit-backdrop-filter: blur(28px) saturate(1.35);
+}
+
+body.season-summer.dark-theme #about.glass-section::after,
+body.season-summer.dark-theme #works.glass-section::after,
+body.season-summer.dark-theme #gallery.glass-section::after,
+body.season-summer.dark-theme #contact.glass-section::after {
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  top: 0;
+  opacity: 0.9;
+  background: linear-gradient(90deg, transparent, rgba(255, 170, 0, 0.7), transparent);
+}
+
+/* Cards: liquid glass oscuro */
+body.season-summer.dark-theme #gallery .gallery-item--featured.glass-card,
+body.season-summer.light-theme #gallery .gallery-item--featured.glass-card {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.season-summer.dark-theme #gallery .gallery-item--featured.glass-card:hover,
+body.season-summer.light-theme #gallery .gallery-item--featured.glass-card:hover {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.season-summer.dark-theme #gallery .gallery-item--featured.glass-card::before,
+body.season-summer.dark-theme #gallery .gallery-item--featured.glass-card::after,
+body.season-summer.light-theme #gallery .gallery-item--featured.glass-card::before,
+body.season-summer.light-theme #gallery .gallery-item--featured.glass-card::after {
+  display: none;
+}
+
+body.season-summer.dark-theme #about .glass-card,
+body.season-summer.dark-theme #works .glass-card,
+body.season-summer.dark-theme #gallery .glass-card {
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  border-radius: 22px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 170, 0, 0.16) 0%,
+      rgba(255, 255, 255, 0.07) 34%,
+      rgba(0, 0, 0, 0.22) 100%
+    ),
+    rgba(8, 4, 0, 0.32);
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.42),
+    0 0 28px rgba(255, 102, 0, 0.1),
+    inset 0 1px 0 rgba(255, 200, 100, 0.4),
+    inset 1px 0 0 rgba(255, 170, 0, 0.2),
+    inset 0 -28px 44px rgba(0, 0, 0, 0.3),
+    inset 0 0 36px rgba(255, 102, 0, 0.05);
+}
+
+body.season-summer.dark-theme #about .glass-card::before,
+body.season-summer.dark-theme #works .glass-card::before,
+body.season-summer.dark-theme #gallery .glass-card::before {
+  content: '';
+  position: absolute;
+  top: -4%;
+  left: -8%;
+  right: 35%;
+  height: 40%;
+  width: auto;
+  inset: auto;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 200, 100, 0.28) 0%,
+    rgba(255, 255, 255, 0.1) 28%,
+    transparent 58%
+  );
+  opacity: 0.7;
+  transform: skewY(-6deg);
+  transform-origin: top left;
+  pointer-events: none;
+  border-radius: 0;
+}
+
+body.season-summer.dark-theme #about .glass-card::after,
+body.season-summer.dark-theme #works .glass-card::after,
+body.season-summer.dark-theme #gallery .glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 70% 45% at 8% 0%, rgba(255, 170, 0, 0.2), transparent 55%),
+    linear-gradient(165deg, transparent 50%, rgba(255, 34, 51, 0.05) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 170, 0, 0.14);
+  opacity: 1;
+  pointer-events: none;
+}
+
+body.season-summer.dark-theme #about .glass-card:hover,
+body.season-summer.dark-theme #works .glass-card:hover,
+body.season-summer.dark-theme #gallery .glass-card:hover {
+  border-color: rgba(255, 170, 0, 0.55);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 170, 0, 0.24) 0%,
+      rgba(255, 255, 255, 0.1) 36%,
+      rgba(0, 0, 0, 0.28) 100%
+    ),
+    rgba(12, 6, 0, 0.38);
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 102, 0, 0.25),
+    inset 0 1px 0 rgba(255, 220, 140, 0.55),
+    inset 1px 0 0 rgba(255, 170, 0, 0.32),
+    inset 0 0 44px rgba(255, 102, 0, 0.1);
+  transform: translateY(-6px) scale(1.012);
+}
+
+body.season-summer.dark-theme #gallery .gallery-info {
+  border-top: 1px solid rgba(255, 102, 0, 0.35);
+  background: linear-gradient(180deg, rgba(255, 102, 0, 0.08), transparent 70%);
+}
+
+body.season-summer.dark-theme #gallery .gallery-badge {
+  color: var(--nerv-danger);
+  text-shadow: 0 0 8px rgba(255, 34, 51, 0.45);
+}
+
+body.season-summer.dark-theme .softwares-section::before {
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  opacity: 0.75;
+  background: linear-gradient(90deg, transparent, rgba(255, 170, 0, 0.55), transparent);
+}
+
+body.season-summer.dark-theme .contact-form {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+body.season-summer.dark-theme .contact-form input,
+body.season-summer.dark-theme .contact-form textarea {
+  border: 1px solid rgba(255, 102, 0, 0.45);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #ffe7b0;
+}
+
+body.season-summer.dark-theme .contact-form input:focus,
+body.season-summer.dark-theme .contact-form textarea:focus {
+  outline: none;
+  border-color: #ff2233;
+  box-shadow: 0 0 0 1px rgba(255, 34, 51, 0.55), 0 0 16px rgba(255, 34, 51, 0.25);
+}
+
+body.season-summer.dark-theme .btn,
+body.season-summer.dark-theme .cookie-btn--primary {
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(110deg, #ff6600 25%, #ffdd88 50%, #ff6600 75%);
+  background-size: 250% 100%;
+  animation: button-shimmer 3s infinite ease-in-out;
+  box-shadow:
+    0 0 0 1px rgba(255, 102, 0, 0.8),
+    0 0 18px rgba(255, 102, 0, 0.35);
+}
+
+body.season-summer.dark-theme .btn:hover,
+body.season-summer.dark-theme .cookie-btn--primary:hover {
+  background: linear-gradient(110deg, #ff2233 25%, #ffaa66 50%, #ff2233 75%);
+  background-size: 250% 100%;
+  filter: brightness(1.05);
+  box-shadow:
+    0 0 0 1px rgba(255, 34, 51, 0.8),
+    0 0 22px rgba(255, 34, 51, 0.4);
+}
+
+body.season-summer.dark-theme .contact-status--error {
+  color: #ff2233;
+  text-shadow: 0 0 10px rgba(255, 34, 51, 0.5);
+}
+
+body.season-summer.dark-theme .contact-status--ok {
+  color: #ffaa00;
+}
+
+body.season-summer.dark-theme .cookie-banner__panel {
+  border: 3px solid rgba(255, 102, 0, 0.7);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.92);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 102, 0, 0.55),
+    0 0 0 1px rgba(255, 102, 0, 0.45),
+    0 0 30px rgba(255, 68, 0, 0.25);
+}
+
+body.season-summer.dark-theme .scroll-cursor {
+  --cursor-color: #ffaa00;
+  --cursor-glow: rgba(255, 102, 0, 0.55);
+}
+
+body.season-summer.dark-theme .scroll-cursor--contact .scroll-cursor__core {
+  --cursor-color: #ff2233;
+}
+
+body.season-summer.dark-theme footer {
+  color: rgba(255, 170, 0, 0.65);
+}
+
+body.season-summer.dark-theme .footer-links a,
+body.season-summer.dark-theme .footer-link-btn {
+  color: #ffaa00;
+}
+
+/* Modo día — glass cálido coherente (sin NERV) */
+body.season-summer.light-theme .eyebrow {
+  color: var(--accent);
+  font-weight: 700;
+  text-shadow: none;
+}
+
+body.season-summer.light-theme #about.glass-section,
+body.season-summer.light-theme #works.glass-section,
+body.season-summer.light-theme #gallery.glass-section,
+body.season-summer.light-theme #contact.glass-section,
+body.season-summer.light-theme #privacidad.glass-section {
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 28px;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(255, 248, 240, 0.55) 48%, rgba(255, 255, 255, 0.45)),
+    rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 18px 44px rgba(47, 31, 20, 0.08);
+  backdrop-filter: blur(28px) saturate(1.3);
+  -webkit-backdrop-filter: blur(28px) saturate(1.3);
+}
+
+body.season-summer.light-theme #about.glass-section::after,
+body.season-summer.light-theme #works.glass-section::after,
+body.season-summer.light-theme #gallery.glass-section::after,
+body.season-summer.light-theme #contact.glass-section::after,
+body.season-summer.light-theme #privacidad.glass-section::after {
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  top: 0;
+  opacity: 0.85;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+}
+
+body.season-summer.light-theme #about .glass-card,
+body.season-summer.light-theme #works .glass-card,
+body.season-summer.light-theme #gallery .glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.28) 38%,
+      rgba(255, 248, 240, 0.22) 100%
+    );
+  backdrop-filter: blur(28px) saturate(1.65);
+  -webkit-backdrop-filter: blur(28px) saturate(1.65);
+  box-shadow:
+    0 10px 40px rgba(47, 31, 20, 0.1),
+    0 2px 8px rgba(47, 31, 20, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(249, 115, 22, 0.06),
+    inset 0 0 40px rgba(255, 255, 255, 0.18);
+}
+
+body.season-summer.light-theme #about .glass-card::before,
+body.season-summer.light-theme #works .glass-card::before,
+body.season-summer.light-theme #gallery .glass-card::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -20%;
+  right: 20%;
+  height: 55%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.35) 28%,
+    transparent 55%
+  );
+  opacity: 0.85;
+  transform: skewY(-8deg);
+  transform-origin: top left;
+  pointer-events: none;
+  border-radius: 0;
+  inset: auto;
+  width: auto;
+}
+
+body.season-summer.light-theme #about .glass-card::after,
+body.season-summer.light-theme #works .glass-card::after,
+body.season-summer.light-theme #gallery .glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(255, 255, 255, 0.55), transparent 50%),
+    linear-gradient(165deg, transparent 40%, rgba(249, 115, 22, 0.04) 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
+    inset 0 -20px 40px rgba(249, 115, 22, 0.03);
+  opacity: 1;
+  pointer-events: none;
+}
+
+body.season-summer.light-theme #about .glass-card:hover,
+body.season-summer.light-theme #works .glass-card:hover,
+body.season-summer.light-theme #gallery .glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.95);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.88) 0%,
+      rgba(255, 255, 255, 0.4) 40%,
+      rgba(255, 247, 237, 0.35) 100%
+    );
+  box-shadow:
+    0 20px 48px rgba(47, 31, 20, 0.12),
+    0 0 0 1px rgba(249, 115, 22, 0.12),
+    0 0 32px rgba(249, 115, 22, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 1px 0 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 48px rgba(255, 255, 255, 0.25);
+  transform: translateY(-6px) scale(1.012);
+}
+
+body.season-summer.light-theme #about .glass-card:hover::before,
+body.season-summer.light-theme #works .glass-card:hover::before,
+body.season-summer.light-theme #gallery .glass-card:hover::before {
+  opacity: 1;
+  transform: skewY(-8deg) translateY(-4%);
+}
+
+body.season-summer.light-theme #about .glass-card h3,
+body.season-summer.light-theme #about .glass-card h4,
+body.season-summer.light-theme #works .glass-card h3,
+body.season-summer.light-theme #works .glass-card h4,
+body.season-summer.light-theme #gallery .gallery-info h3 {
+  color: #2f1f14 !important;
+  background: none !important;
+  -webkit-text-fill-color: #2f1f14 !important;
+  text-shadow: none !important;
+  animation: none !important;
+  filter: none !important;
+}
+
+body.season-summer.light-theme #works .softwares-section h3,
+body.season-summer.light-theme #about .tech-section h3 {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* shimmer de App.css */
+}
+
+body.season-summer.light-theme #about .glass-card p,
+body.season-summer.light-theme #works .glass-card p,
+body.season-summer.light-theme #gallery .gallery-info p,
+body.season-summer.light-theme #about .section-lead,
+body.season-summer.light-theme #works .section-lead,
+body.season-summer.light-theme #gallery .section-lead,
+body.season-summer.light-theme #contact .section-lead,
+body.season-summer.light-theme #privacidad .section-lead,
+body.season-summer.light-theme #works .softwares-lead {
+  color: rgba(122, 85, 64, 0.95) !important;
+}
+
+body.season-summer.light-theme #gallery .gallery-info {
+  border-top: 1px solid rgba(249, 115, 22, 0.12);
+  background: linear-gradient(180deg, rgba(255, 247, 237, 0.55), transparent 75%);
+}
+
+body.season-summer.light-theme #gallery .gallery-badge {
+  color: var(--primary);
+  text-shadow: none;
+}
+
+body.season-summer.light-theme .softwares-section::before {
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  opacity: 0.7;
+  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.45), transparent);
+}
+
+body.season-summer.light-theme .contact-form {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+body.season-summer.light-theme .contact-form input,
+body.season-summer.light-theme .contact-form textarea {
+  border: 1px solid rgba(127, 75, 29, 0.16);
+  border-radius: 14px;
+  background: rgba(255, 252, 248, 0.92);
+  color: #2f1f14;
+}
+
+body.season-summer.light-theme .contact-form input:focus,
+body.season-summer.light-theme .contact-form textarea:focus {
+  outline: none;
+  border-color: rgba(249, 115, 22, 0.55);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+}
+
+body.season-summer.light-theme .btn,
+body.season-summer.light-theme .cookie-btn--primary {
+  border: none;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(110deg, var(--primary) 25%, #ffd7a8 50%, var(--primary) 75%);
+  background-size: 250% 100%;
+  animation: button-shimmer 3s infinite ease-in-out;
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.22);
+}
+
+body.season-summer.light-theme .btn:hover,
+body.season-summer.light-theme .cookie-btn--primary:hover {
+  filter: brightness(1.05);
+  background: linear-gradient(110deg, var(--primary-dark) 25%, #ffcc85 50%, var(--primary-dark) 75%);
+  background-size: 250% 100%;
+  box-shadow: 0 14px 32px rgba(194, 65, 12, 0.25);
+}
+
+body.season-summer.light-theme .cookie-banner__panel {
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 22px;
+  background: rgba(255, 250, 244, 0.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 16px 40px rgba(47, 31, 20, 0.1);
+}
+
+body.season-summer.light-theme .scroll-cursor {
+  --cursor-color: #f97316;
+  --cursor-glow: rgba(249, 115, 22, 0.35);
+}
+
+body.season-summer.light-theme .scroll-cursor--contact .scroll-cursor__core {
+  --cursor-color: #ea580c;
+}
+
+body.season-summer.light-theme footer {
+  color: var(--muted);
+}
+
+body.season-summer.light-theme .footer-links a,
+body.season-summer.light-theme .footer-link-btn {
+  color: var(--primary);
+}
+
+body.season-summer.light-theme .contact-status--error {
+  color: #dc2626;
+  text-shadow: none;
+}
+
+body.season-summer.light-theme .contact-status--ok {
+  color: #c2410c;
+}

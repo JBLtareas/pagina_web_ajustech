@@ -1,0 +1,212 @@
+@use 'sass:math';
+
+$numberOfOctober: 24 !default;
+$october-types: skull, pumpkin, leaf !default;
+
+@mixin october-particles($count: $numberOfOctober) {
+  @for $i from 1 through $count {
+    &._#{$i} {
+      @if $i % 2 == 0 {
+        left: #{math.random(22)}vw;
+      } @else {
+        left: #{78 + math.random(22)}vw;
+      }
+      filter: blur(#{math.random(2) - 1}px);
+      animation:
+        #{(math.random(20) + 10) * 0.1}s flickr #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.2}s fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+.october-area {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.october {
+  position: absolute;
+  top: -1.5rem;
+  z-index: 0;
+  display: block;
+  font-size: 10px;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.75;
+
+  &._md {
+    font-size: 1.5em;
+  }
+
+  &._lg {
+    font-size: 2.25em;
+  }
+
+  &.skull::before {
+    content: '💀';
+  }
+
+  &.pumpkin::before {
+    content: '🎃';
+  }
+
+  &.leaf::before {
+    content: '🍂';
+  }
+
+  @include october-particles;
+}
+
+@keyframes flickr {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+
+  100% {
+    transform: translate3d(5vw, 110vh, 0) rotate(360deg);
+  }
+}
+
+/* =========================================================
+   Cursor Halloween — SOLO body.season-halloween
+   (emoji por sección; el orb glass de App.css se apaga aquí)
+   ========================================================= */
+body.season-halloween .scroll-cursor {
+  --cursor-color: #e98d42;
+  --cursor-glow: rgba(249, 115, 22, 0.45);
+}
+
+body.season-halloween .scroll-cursor__core,
+body.season-halloween.light-theme .scroll-cursor__core,
+body.season-halloween.dark-theme .scroll-cursor__core {
+  width: 2rem !important;
+  height: 2rem !important;
+  margin: -1rem !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+
+body.season-halloween .scroll-cursor__core::before,
+body.season-halloween.light-theme .scroll-cursor__core::before,
+body.season-halloween.dark-theme .scroll-cursor__core::before {
+  content: '🎃';
+  position: absolute;
+  inset: 0 !important;
+  display: grid !important;
+  place-items: center;
+  border: none !important;
+  border-radius: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  font-size: 1.85rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+}
+
+body.season-halloween .scroll-cursor__core::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.season-halloween .scroll-cursor--home .scroll-cursor__core::before {
+  content: '🎃';
+}
+
+body.season-halloween.light-theme .scroll-cursor--home .scroll-cursor__core::before {
+  content: '👻';
+}
+
+body.season-halloween .scroll-cursor--about .scroll-cursor__core::before {
+  content: '💀';
+}
+
+body.season-halloween .scroll-cursor--works .scroll-cursor__core::before {
+  content: '🦇';
+  font-size: 2.1rem;
+}
+
+body.season-halloween .scroll-cursor--gallery .scroll-cursor__core::before {
+  content: '🕸️';
+}
+
+body.season-halloween .scroll-cursor--contact .scroll-cursor__core::before {
+  content: '🍬';
+}
+
+body.season-halloween .scroll-cursor--about .scroll-cursor__core,
+body.season-halloween .scroll-cursor--works .scroll-cursor__core,
+body.season-halloween .scroll-cursor--gallery .scroll-cursor__core {
+  width: 2.15rem !important;
+  height: 2.15rem !important;
+  margin: -1.075rem !important;
+}
+
+/* Cards Halloween dark: mismo lenguaje glass del modo noche */
+body.season-halloween.dark-theme #about.glass-section,
+body.season-halloween.dark-theme #works.glass-section {
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  background:
+    linear-gradient(160deg, rgba(168, 85, 247, 0.1), transparent 42%),
+    rgba(15, 23, 42, 0.62);
+  box-shadow:
+    0 16px 42px rgba(2, 6, 23, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(26px) saturate(1.25);
+  -webkit-backdrop-filter: blur(26px) saturate(1.25);
+}
+
+body.season-halloween.dark-theme #about .glass-card,
+body.season-halloween.dark-theme #works .glass-card {
+  border: 1px solid rgba(167, 139, 250, 0.24);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent 45%),
+    rgba(15, 23, 42, 0.55);
+  box-shadow:
+    0 14px 32px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+body.season-halloween.dark-theme #about .glass-card:hover,
+body.season-halloween.dark-theme #works .glass-card:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow:
+    0 18px 40px rgba(2, 6, 23, 0.5),
+    0 0 18px rgba(168, 85, 247, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+body.season-halloween.dark-theme #about .glass-card h3,
+body.season-halloween.dark-theme #about .glass-card h4,
+body.season-halloween.dark-theme #works .glass-card h3,
+body.season-halloween.dark-theme #works .glass-card h4 {
+  background: none;
+  -webkit-text-fill-color: #f8fafc;
+  color: #f8fafc;
+  animation: none;
+  filter: none;
+}
+
+body.season-halloween.dark-theme #about .glass-card p,
+body.season-halloween.dark-theme #works .glass-card p,
+body.season-halloween.dark-theme #about .section-lead,
+body.season-halloween.dark-theme #works .section-lead {
+  color: rgba(203, 213, 225, 0.92);
+}

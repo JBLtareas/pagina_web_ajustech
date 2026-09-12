@@ -1,43 +1,133 @@
-import GltfViewer from './GltfViewer';
+import pochaccoRender from '../assets/poccahco completo render.png';
 
-const GALLERY_ITEMS = [
+/** Video en public/ para no trabar el watcher de Vite en Windows */
+const FLOWERS_VIDEO = '/videos/flowers.mp4';
+
+/**
+ * Bandas diagonales simétricas.
+ * Para añadir contenido: empuja otro objeto a `panels` (image | video).
+ */
+const SHOWCASE_PANELS = [
   {
-    id: 'video-1',
+    type: 'image',
+    src: pochaccoRender,
+    position: '58% 52%',
+    alt: 'Pochacco render',
+  },
+  {
     type: 'video',
-    title: 'Animación de producto',
-    description: 'Reemplaza la URL con tu video en public/assets o un enlace externo.',
-    src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-    poster: '',
-  },
-  {
-    id: 'video-2',
-    type: 'video',
-    title: 'Demo de proyecto',
-    description: 'Ideal para mostrar recorridos, prototipos o presentaciones en movimiento.',
-    src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
-    poster: '',
-  },
-  {
-    id: 'gltf-1',
-    type: 'gltf',
-    title: 'Modelo 3D interactivo',
-    description: 'Arrastra para rotar. Coloca tus archivos .gltf o .glb en public/models/.',
-    src: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/DamagedHelmet/glTF/DamagedHelmet.gltf',
-  },
-  {
-    id: 'gltf-2',
-    type: 'gltf',
-    title: 'Visualización Blender',
-    description: 'Exporta desde Blender en formato GLB y actualiza la ruta del modelo.',
-    src: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf',
+    src: FLOWERS_VIDEO,
+    position: '50% 50%',
+    alt: 'Video Flowers',
   },
 ];
 
-function GalleryItem({ item }) {
+/** Inclinación compartida (mismo ángulo en todas las uniones). */
+const BAND_SLANT = 7;
+
+/**
+ * Clip simétrico por índice: cada panel ocupa 1/n con el mismo bisel.
+ * Funciona con 2, 3, 4… paneles.
+ */
+function bandClipPath(index, total, slant = BAND_SLANT) {
+  const n = Math.max(total, 1);
+  const y0 = (index / n) * 100;
+  const y1 = ((index + 1) / n) * 100;
+
+  const topLeft = index === 0 ? 0 : Math.min(100, y0 + slant);
+  const topRight = index === 0 ? 0 : Math.max(0, y0 - slant);
+  const bottomRight = index === n - 1 ? 100 : Math.min(100, y1 - slant);
+  const bottomLeft = index === n - 1 ? 100 : Math.min(100, y1 + slant);
+
+  return `polygon(0% ${topLeft}%, 100% ${topRight}%, 100% ${bottomRight}%, 0% ${bottomLeft}%)`;
+}
+
+const GALLERY_ITEMS = [
+  {
+    id: 'showcase',
+    type: 'clip-bands',
+    featured: true,
+    panels: SHOWCASE_PANELS,
+  },
+  {
+    id: 'pochacco',
+    type: 'image',
+    title: 'Pochacco',
+    description: 'Render completo modelado en Blender.',
+    src: pochaccoRender,
+    badge: 'Render',
+  },
+  {
+    id: 'flowers',
+    type: 'video',
+    title: 'Flowers',
+    description: 'Clip de motion propio para campañas y demos.',
+    src: FLOWERS_VIDEO,
+    badge: 'Video',
+  },
+];
+
+function ClipBands({ panels }) {
+  const total = panels.length;
+
   return (
-    <article className="glass-card gallery-item">
-      <div className="gallery-media">
-        {item.type === 'video' ? (
+    <div className="clip-bands-stage">
+      <ul
+        className="clip-bands"
+        aria-label="Showcase"
+        style={{ '--clip-count': total }}
+      >
+        {panels.map((panel, i) => (
+          <li
+            key={`${panel.type}-${panel.alt || i}`}
+            style={{
+              '--band-clip': bandClipPath(i, total),
+              zIndex: i + 1,
+            }}
+          >
+            {panel.type === 'video' ? (
+              <video
+                className="clip-bands-media"
+                src={panel.src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={panel.alt}
+                style={{ objectPosition: panel.position || '50% 50%' }}
+              />
+            ) : (
+              <img
+                className="clip-bands-media"
+                src={panel.src}
+                alt={panel.alt || ''}
+                style={{ objectPosition: panel.position || '50% 50%' }}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+                draggable={false}
+              />
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function GalleryItem({ item }) {
+  const isFeatured = Boolean(item.featured);
+
+  return (
+    <article className={`glass-card gallery-item${isFeatured ? ' gallery-item--featured' : ''}`}>
+      <div
+        className={`gallery-media${
+          isFeatured ? ' gallery-media--stage gallery-media--clip' : ''
+        }`}
+      >
+        {item.type === 'clip-bands' ? (
+          <ClipBands panels={item.panels} />
+        ) : item.type === 'video' ? (
           <video
             className="gallery-video"
             controls
@@ -45,38 +135,42 @@ function GalleryItem({ item }) {
             preload="metadata"
             poster={item.poster || undefined}
           >
-            <source src={item.src} />
+            <source src={item.src} type="video/mp4" />
             Tu navegador no soporta la reproducción de video.
           </video>
         ) : (
-          <GltfViewer url={item.src} />
+          <figure className="gallery-render">
+            <img
+              className="gallery-render-img"
+              src={item.src}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
         )}
       </div>
-      <div className="gallery-info">
-        <span className="gallery-badge">{item.type === 'video' ? 'Video' : 'GLTF / GLB'}</span>
-        <h3>{item.title}</h3>
-        <p>{item.description}</p>
-      </div>
+      {!isFeatured && (
+        <div className="gallery-info">
+          <span className="gallery-badge">
+            {item.badge || (item.type === 'video' ? 'Video' : 'Render')}
+          </span>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </div>
+      )}
     </article>
   );
 }
 
 function Gallery() {
   return (
-    <section id="gallery" className="section glass-section">
+    <section id="gallery" className="section glass-section" data-cursor-section="gallery">
       <div className="section-header">
-        <p className="eyebrow">Portafolio visual</p>
         <h2>Galería</h2>
-        <p className="section-lead">
-          Espacio para mostrar videos y modelos 3D. Edita el arreglo en
-          {' '}
-          <code>src/components/Gallery.jsx</code>
-          {' '}
-          para agregar tus propios archivos.
-        </p>
       </div>
 
-      <div className="gallery-grid">
+      <div className="gallery-grid gallery-grid--showcase">
         {GALLERY_ITEMS.map((item) => (
           <GalleryItem key={item.id} item={item} />
         ))}

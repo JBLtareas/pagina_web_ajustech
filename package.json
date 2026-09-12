@@ -4,12 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n api,web -c magenta,cyan \"npm run server\" \"npm run client\"",
-    "client": "vite",
-    "server": "node --watch server/index.js",
+    "predev": "node scripts/free-ports.js",
+    "dev": "concurrently -k -n api,web -c magenta,cyan \"npm run server\" \"npm run client\"",
+    "client": "vite --host 127.0.0.1 --port 5199 --strictPort --force --open",
+    "server": "node server/index.js",
     "build": "vite build",
-    "start": "node server/index.js",
-    "preview": "vite preview"
+    "start": "node --env-file=.env server/index.js",
+    "start:prod": "node --env-file=.env server/index.js",
+    "contacts": "node --env-file=.env scripts/read-contacts.js",
+    "preview": "vite preview",
+    "free": "node scripts/free-ports.js"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

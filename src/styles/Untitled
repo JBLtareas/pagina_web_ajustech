@@ -1,8 +1,7 @@
-.snowflake-area
+.hojas-area
 	- for i in (1..250)
-		div class="snowflake _#{i}" ❄️
+		div class="hojasflake _#{i}" 🍂
 	- for i in (1..50)
-		div class="snowflake _md _md-#{i}" ❄️
+		div class="hojasecaflake _md _md-#{i}" 🍁
 	- for i in (1..50)
-		div class="snowflake _lg _lg-#{i}" ❄️
-			
+		div class="hojaslake _lg _lg-#{i}" 🍂
