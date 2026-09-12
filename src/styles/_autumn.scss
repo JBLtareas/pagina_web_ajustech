@@ -1,0 +1,113 @@
+@use 'sass:math';
+
+$numberOfHojas: 60 !default;
+$numberOfHojasMd: 20 !default;
+$numberOfHojasLg: 20 !default;
+
+// Alterna bordes izquierdo (0–22vw) y derecho (78–100vw) para no tapar el texto.
+@function leaf-side-left($i) {
+  @if $i % 2 == 0 {
+    @return math.random(22) * 1vw;
+  }
+
+  @return (78 + math.random(22)) * 1vw;
+}
+
+@mixin leaf-fall($count) {
+  @for $i from 1 through $count {
+    &._#{$i} {
+      left: leaf-side-left($i);
+      filter: blur(#{math.random(2) - 1}px);
+      animation:
+        #{(math.random(20) + 20) * 0.1}s hojas-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.2}s hojas-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+.hojas-area {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hojasflake,
+.hojasecaflake,
+.hojaslake {
+  position: absolute;
+  top: -2vh;
+  font-size: 10px;
+  opacity: 0.72;
+  line-height: 1;
+
+  &._md {
+    font-size: 1.5em;
+  }
+
+  &._lg {
+    font-size: 2.25em;
+  }
+}
+
+.hojasflake {
+  &::before {
+    content: '🍂';
+  }
+
+  @include leaf-fall($numberOfHojas);
+}
+
+.hojasecaflake {
+  &::before {
+    content: '🍁';
+  }
+
+  @for $i from 1 through $numberOfHojasMd {
+    &._md-#{$i} {
+      left: leaf-side-left($i);
+      filter: blur(#{math.random(2) - 1}px);
+      animation:
+        #{(math.random(20) + 20) * 0.1}s hojas-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.25}s hojas-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+.hojaslake {
+  &::before {
+    content: '🍂';
+  }
+
+  @for $i from 1 through $numberOfHojasLg {
+    &._lg-#{$i} {
+      left: leaf-side-left($i);
+      animation:
+        #{(math.random(20) + 20) * 0.1}s hojas-flicker #{math.random(20) * -0.1}s infinite,
+        #{(math.random(100) + 50) * 0.3}s hojas-fall #{math.random(100) * -0.2}s infinite;
+    }
+  }
+}
+
+@keyframes hojas-flicker {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes hojas-fall {
+  0% {
+    transform: translate3d(0, -12vh, 0) rotate(0deg);
+  }
+
+  100% {
+    transform: translate3d(4vw, 110vh, 0) rotate(420deg);
+  }
+}

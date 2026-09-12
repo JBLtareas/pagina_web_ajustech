@@ -1,21 +1,33 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Gallery from './components/Gallery';
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import ScrollCursor from './components/ScrollCursor';
-import HalloweenSkeleton from './season';
+import GalleryErrorBoundary from './components/GalleryErrorBoundary';
+import ContactSection from './components/ContactSection';
+import CookieBanner, { openCookieSettings } from './components/CookieBanner';
+import HalloweenSkeleton, { SeasonalEffects, useSeasonTheme } from './season';
+import aviaMintLogo from './assets/aviamint-logo.png';
+import autoStockLogo from './assets/autostock-pro-logo.png';
 import './App.css';
+import './styles/halloweenmode.scss';
+import './styles/_winter.scss';
+
+const Gallery = lazy(() => import('./components/Gallery'));
 
 const BACKGROUND_VIDEO = '/videodefondo.webm';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [pendingDarkMode, setPendingDarkMode] = useState(true);
   const [themeTransition, setThemeTransition] = useState({ active: false, x: 0, y: 0, direction: 'to-light' });
-  const [contact, setContact] = useState({ name: '', email: '', message: '' });
-  const [contactStatus, setContactStatus] = useState({ type: '', text: '' });
-  const [sending, setSending] = useState(false);
   const toggleRef = useRef(null);
   const handleLoadingComplete = useCallback(() => setIsLoading(false), []);
+
+  useSeasonTheme();
+
+  useEffect(() => {
+    document.body.classList.add('dark-theme');
+    document.body.classList.remove('light-theme');
+  }, []);
 
   useEffect(() => {
     document.body.classList.toggle('light-theme', !darkMode);
@@ -58,42 +70,9 @@ function App() {
     setPendingDarkMode(nextDarkMode);
   };
 
-  const handleContactChange = (event) => {
-    const { name, value } = event.target;
-    setContact((current) => ({ ...current, [name]: value }));
-  };
-
-  const handleContactSubmit = async (event) => {
-    event.preventDefault();
-    setSending(true);
-    setContactStatus({ type: '', text: '' });
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contact),
-      });
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'No se pudo enviar el mensaje.');
-      }
-
-      setContact({ name: '', email: '', message: '' });
-      setContactStatus({ type: 'ok', text: 'Mensaje enviado. Te contactaremos pronto.' });
-    } catch (error) {
-      setContactStatus({
-        type: 'error',
-        text: error.message || 'No se pudo enviar. Intenta de nuevo.',
-      });
-    } finally {
-      setSending(false);
-    }
-  };
-
   return (
     <div className={`App ${darkMode ? 'dark-theme' : 'light-theme'}`}>
+      <SeasonalEffects />
       <ScrollCursor />
       <div className={`loading-screen ${isLoading ? 'is-visible' : ''}`} aria-hidden={!isLoading}>
         <div className="loading-shell">
@@ -158,116 +137,172 @@ function App() {
 
         <section id="home" className="hero-content" data-cursor-section="home">
           <p className="eyebrow">Soluciones creativas para tu negocio</p>
-          <h1>Impulsamos tu presencia digital con tecnología y diseño.</h1>
-          <p>Desarrollamos sitios web modernos, funcionales y pensados para convertir visitantes en clientes.</p>
+          <h1 className="ice-text">Impulsamos tu presencia digital con tecnología y diseño.</h1>
+          <p>
+            Desarrollamos sitios web, servicios SaaS y modelos de producto modernos,
+            funcionales y pensados para convertir visitantes en clientes.
+          </p>
           <a href="#contact" className="btn">Habla con nosotros</a>
         </section>
       </header>
 
       <main>
-        <section id="about" className="section glass-section" data-cursor-section="about">
+        <section id="about" className="section glass-section stack-section" data-cursor-section="about">
           <div className="section-header">
             <h2>Acerca de nosotros</h2>
-            <p className="section-lead">Somos un equipo enfocado en crear experiencias digitales claras, rápidas y profesionales para marcas que quieren crecer.</p>
+            <p className="section-lead">
+              Somos un equipo enfocado en crear experiencias digitales claras, rápidas y profesionales
+              para marcas que quieren crecer.
+            </p>
           </div>
 
-          <div className="tech-section">
+          <div className="stack-block tech-section">
             <h3>Tecnologías con las que trabajamos</h3>
-            <div className="tech-list">
+            <div className="card-grid">
               <article className="glass-card">
                 <h4>React + Node</h4>
                 <p>Construimos sitios y APIs modernas, rápidas y fáciles de mantener para cada proyecto.</p>
               </article>
               <article className="glass-card">
                 <h4>Blender</h4>
-                <p>Utilizamos Blender para crear animaciones y visuales de calidad que aportan valor a la identidad de cada marca.</p>
+                <p>
+                  Utilizamos Blender para crear animaciones y visuales de calidad que aportan valor a la
+                  identidad de cada marca.
+                </p>
               </article>
               <article className="glass-card">
                 <h4>HTML, CSS y JavaScript</h4>
-                <p>Combinamos estas tecnologías para construir interfaces modernas, funcionales y con una excelente experiencia de usuario.</p>
+                <p>
+                  Combinamos estas tecnologías para construir interfaces modernas, funcionales y con una
+                  excelente experiencia de usuario.
+                </p>
               </article>
             </div>
           </div>
         </section>
 
-        <section id="works" className="section glass-section alt" data-cursor-section="works">
+        <section id="works" className="section glass-section alt stack-section" data-cursor-section="works">
           <div className="section-header">
             <h2>Trabajos</h2>
             <p className="section-lead">Proyectos y soluciones que hemos desarrollado para distintos sectores.</p>
           </div>
-          <div className="cards">
-            <article className="glass-card">
-              <h3>Landing Page</h3>
-              <p>Diseño atractivo y optimizado para captar clientes potenciales.</p>
-            </article>
-            <article className="glass-card">
-              <h3>Tiendas Online</h3>
-              <p>Plataformas fáciles de usar con experiencia de compra fluida.</p>
-            </article>
-            <article className="glass-card">
-              <h3>Portales Corporativos</h3>
-              <p>Soluciones profesionales para mostrar servicios y productos.</p>
-            </article>
+
+          <div className="stack-block">
+            <div className="card-grid">
+              <article className="glass-card">
+                <h3>Landing Page</h3>
+                <p>Diseño atractivo y optimizado para captar clientes potenciales.</p>
+              </article>
+              <article className="glass-card">
+                <h3>Tiendas Online</h3>
+                <p>Plataformas fáciles de usar con experiencia de compra fluida.</p>
+              </article>
+              <article className="glass-card">
+                <h3>Portales Corporativos</h3>
+                <p>Soluciones profesionales para mostrar servicios y productos.</p>
+              </article>
+            </div>
+          </div>
+
+          <div className="stack-block softwares-section">
+            <h3>Nuestros softwares</h3>
+            <p className="section-lead softwares-lead">
+              Herramientas propias para agilizar operaciones. Para costos y cotización, escríbenos.
+            </p>
+            <div className="card-grid">
+              <article className="glass-card">
+                <img
+                  className="software-logo"
+                  src={aviaMintLogo}
+                  alt="Logo AviaMint"
+                  width={72}
+                  height={72}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <h4>AviaMint</h4>
+                <p>
+                  Software de gestión aeronáutica para inventario, mantenimiento y operaciones.
+                  Centraliza piezas, repuestos y documentación técnica, con alertas de servicio y
+                  trazabilidad para mantener cada aeronave lista y en cumplimiento.
+                </p>
+                <a className="card-cta" href="#contact">
+                  Cotizar / costos → Contacto
+                </a>
+              </article>
+              <article className="glass-card">
+                <img
+                  className="software-logo"
+                  src={autoStockLogo}
+                  alt="Logo AutoStock Pro"
+                  width={72}
+                  height={72}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <h4>AutoStock Pro</h4>
+                <p>
+                  Optimiza tu taller automotriz con un sistema que controla inventario, registra ventas
+                  en tiempo real y mantiene tu stock siempre actualizado. Administra insumos, repuestos
+                  y servicios desde un solo panel, con reportes claros de lo más vendido y alertas de
+                  disponibilidad.
+                </p>
+                <a className="card-cta" href="#contact">
+                  Cotizar / costos → Contacto
+                </a>
+              </article>
+              <article className="glass-card">
+                <h4>Ajustech Studio 3D</h4>
+                <p>Pipeline interno para preparar modelos, animaciones y previews listos para web.</p>
+              </article>
+            </div>
           </div>
         </section>
 
         <div className="gallery-section-shell" data-cursor-section="gallery">
-          <Gallery />
+          <GalleryErrorBoundary>
+            <Suspense
+              fallback={
+                <section className="section glass-section">
+                  <p>Cargando galería…</p>
+                </section>
+              }
+            >
+              <Gallery />
+            </Suspense>
+          </GalleryErrorBoundary>
         </div>
 
-        <section id="contact" className="section glass-section" data-cursor-section="contact">
+        <ContactSection />
+
+        <section id="privacidad" className="section glass-section" data-cursor-section="contact">
           <div className="section-header">
-            <h2>Contacto</h2>
-            <p className="section-lead">Escríbenos para hablar de tu próximo proyecto.</p>
+            <h2>Privacidad y cookies</h2>
+            <p className="section-lead">
+              En Ajustech usamos cookies necesarias para el funcionamiento del sitio. Las cookies
+              opcionales de analítica solo se activan si las aceptas. Puedes cambiar tu elección en
+              cualquier momento.
+            </p>
           </div>
-          <form className="contact-form" onSubmit={handleContactSubmit}>
-            <label>
-              Nombre
-              <input
-                name="name"
-                type="text"
-                value={contact.name}
-                onChange={handleContactChange}
-                autoComplete="name"
-                required
-              />
-            </label>
-            <label>
-              Correo
-              <input
-                name="email"
-                type="email"
-                value={contact.email}
-                onChange={handleContactChange}
-                autoComplete="email"
-                required
-              />
-            </label>
-            <label>
-              Mensaje
-              <textarea
-                name="message"
-                rows="4"
-                value={contact.message}
-                onChange={handleContactChange}
-                required
-              />
-            </label>
-            <button className="btn" type="submit" disabled={sending}>
-              {sending ? 'Enviando…' : 'Enviar mensaje'}
+          <div className="privacy-actions">
+            <button type="button" className="btn" onClick={openCookieSettings}>
+              Gestionar cookies
             </button>
-            {contactStatus.text ? (
-              <p className={`contact-status contact-status--${contactStatus.type}`} role="status">
-                {contactStatus.text}
-              </p>
-            ) : null}
-          </form>
+          </div>
         </section>
       </main>
 
       <footer>
-        © 2026 Ajustech. Todos los derechos reservados.
+        <p>© 2026 Ajustech. Todos los derechos reservados.</p>
+        <p className="footer-links">
+          <a href="#privacidad">Privacidad</a>
+          <button type="button" className="footer-link-btn" onClick={openCookieSettings}>
+            Cookies
+          </button>
+        </p>
       </footer>
+
+      <CookieBanner />
     </div>
   );
 }

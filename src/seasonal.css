@@ -1,7 +1,8 @@
 .seasonal-container {
   text-align: center;
-  margin-top: 50px;
-  font-size: 2rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
 }
 
 .seasonal-container .seasonal-skeleton {
@@ -12,7 +13,6 @@
   background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
   background-size: 200% 100%;
   animation: seasonal-shimmer 1.5s infinite;
-  animation-delay: 3ms;
 }
 
 @keyframes seasonal-shimmer {
@@ -27,9 +27,25 @@
 
 .seasonal-container .seasonal-halloween {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 8px 14px;
   border-radius: 12px;
-  background: linear-gradient(45deg, #ff6f61, #ffcc70);
+  background: linear-gradient(45deg, var(--season-accent-2, #ff6f61), var(--season-accent, #ffcc70));
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px var(--season-glow, rgba(0, 0, 0, 0.3));
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+body.season-halloween .seasonal-halloween {
+  background: linear-gradient(45deg, #7c3aed, #f97316);
+}
+
+body.season-winter .seasonal-halloween {
+  background: linear-gradient(45deg, #0284c7, #94a3b8);
+}
+
+/* Solo visible dentro del loading; no afecta el layout de la página */
+.loading-screen .seasonal-container {
+  position: relative;
+  z-index: 1;
 }
